@@ -41,12 +41,11 @@ class ScanResult(Base):
     uid = Column(String, nullable=False)
     mid = Column(String, nullable=True)
     otherhost = Column(String, nullable=True)
-    found = Column(Boolean, nullable=False, default=False)
+    found = Column(Boolean, nullable=True)
 
 
-def scan_result(host: str, user: str, mailbox: str, uid: str, mid: str, found: bool = False) -> ScanResult:
+def scan_result(host: str, user: str, mailbox: str, uid: str, mid: str) -> ScanResult:
     result = ScanResult()
-    result.found = found
     result.host = host
     result.mailbox = mailbox
     result.mid = mid

@@ -138,8 +138,9 @@ class IMAPClient(IMAP4_SSL):
             sr = scan_result(self.host, self.user, mailbox, uid, mid)
             if mid and isinstance(self.other_client, IMAPClient):
                 sr.otherhost = self.other_client.host
-                sr.found = self.other_client._mid_exists(mid, mailbox)
-                if not sr.found:
+                if self.other_client._mid_exists(mid, mailbox):
+                    sr.found = True
+                else:
                     mismatch_count += 1
             session.add(sr)
             row_count += 1
